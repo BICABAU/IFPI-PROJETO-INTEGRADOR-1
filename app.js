@@ -1,7 +1,7 @@
 require("dotenv").config
 const pool = require("./db")
 const express = require("express")
-const app = express();
+const app = express()
 const session = require("express-session")
 const pgSession = require("connect-pg-simple")(session)
 const router = require("./router")
@@ -16,7 +16,7 @@ let sessionOptions = session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 1000 * 60 * 60,
+        maxAge: 1000 * 60 * 60, // equivale a 1hr
         httpOnly: true
     }
 })

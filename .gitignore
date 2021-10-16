@@ -3,6 +3,8 @@ build
 npm-debug.log
 .env
 .DS_Store
+tmp/*
+yarn.lock
 
 # local env files
 .env.local

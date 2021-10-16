@@ -3,12 +3,12 @@ const Certificados = require('../models/Certificados');
 exports.postACs = function (req, res) {
     let resultado_categoria = new Certificados()
     resultado_categoria.readCatAcs()
-    .then(function (categorias_recuperadas_acs){
-        res.render('pages/postACs', { categorias_recuperadas_acs : categorias_recuperadas_acs , layout: 'pages/postACs' })
-    }).catch(function (err){
-        res.send(err);
-    })
-   
+        .then(function (categorias_recuperadas_acs) {
+            res.render('pages/postACs', { categorias_recuperadas_acs: categorias_recuperadas_acs, layout: 'pages/postACs' })
+        }).catch(function (err) {
+            res.send(err);
+        })
+
 };
 
 exports.subcategorias_json = function (req, res) {
@@ -22,7 +22,6 @@ exports.subcategorias_json = function (req, res) {
         })
 }
 
-
 exports.postAEs = function (req, res) {
     let resultado_categoria = new Certificados()
     resultado_categoria.readCatAes()
@@ -32,8 +31,6 @@ exports.postAEs = function (req, res) {
             res.send(err);
         })
 };
-
-
 
 exports.getAllACs = function (req, res) {
     let certificado = new Certificados(req.file, null, req.session.user.email)
@@ -93,7 +90,6 @@ exports.getByIdAe = function (req, res) {
             res.send(err);
         });
 };
-
 
 exports.apagarCertificadoACs = function (req, res) {
     const nome = req.params.nome
