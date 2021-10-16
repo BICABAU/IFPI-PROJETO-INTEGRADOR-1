@@ -4,9 +4,13 @@ const multer = require('multer')
 const multerConfig = require('./config/multer')
 const User = require('./models/User')
 const Certificados = require('./models/Certificados')
+const loginVerification = require('./middlewares/mustBeLoggedIn')
 
 const userController = require('./controllers/userController')
+const certificadosAcsController = require('./controllers/certificadosAcsController')
+const certificadosAesController = require('./controllers/certificadosAesController')
 const postController = require('./controllers/postController')
+const gamificationController = require('./controllers/gamificationController')
 
 //roteamentos do usuário
 router.get('/', userController.login_form)
@@ -22,17 +26,18 @@ router.get('/cursos_json/:id_tipo_curso_fk', userController.cursos_json)
 router.get('/subcategorias_json/:id_tipo_atividade_acs_fk', postController.subcategorias_json)
 
 router.get('/esqueciASenha', userController.esqueciASenha)
-router.get('/perfilDoAluno', userController.mustBeLoggedIn, userController.perfilDoAluno)
+router.get('/perfilDoAluno', loginVerification.mustBeLoggedIn, userController.perfilDoAluno)
 router.post('/cadastrar', userController.cadastrar)
 router.get('/logout', userController.logout)
-router.post('/alterarDados', userController.mustBeLoggedIn, userController.alterarDados)
-router.get('/estatisticas', userController.mustBeLoggedIn, postController.pegarAtividades, userController.estatisticas)
+router.post('/alterarDados', loginVerification.mustBeLoggedIn, userController.alterarDados)
+router.get('/estatisticas', loginVerification.mustBeLoggedIn, postController.pegarAtividades, userController.estatisticas)
+router.get('/ranking', loginVerification.mustBeLoggedIn, gamificationController.rankingHighlight)
 
 //roteamento de post
-router.get('/postACs', userController.mustBeLoggedIn, postController.postACs)
-router.get('/postAEs', userController.mustBeLoggedIn, postController.postAEs)
-router.get('/apagarCertificadoACs/:nome', userController.mustBeLoggedIn, postController.apagarCertificadoACs)
-router.get('/apagarCertificadoAEs/:nome', userController.mustBeLoggedIn, postController.apagarCertificadoAEs)
+router.get('/postACs', loginVerification.mustBeLoggedIn, postController.postACs)
+router.get('/postAEs', loginVerification.mustBeLoggedIn, postController.postAEs)
+router.get('/apagarCertificadoACs/:nome', loginVerification.mustBeLoggedIn, certificadosAcsController.apagarCertificadoACs)
+router.get('/apagarCertificadoAEs/:nome', loginVerification.mustBeLoggedIn, certificadosAesController.apagarCertificadoAEs)
 
 router.post('/uploadACs', multer(multerConfig).single('certificados'), (req, res) => {
     
@@ -63,9 +68,9 @@ router.post('/uploadAEs', multer(multerConfig).single('certificados'), (req, res
 
 
 //roteamento de certificados
-router.get('/atividadesComplementares', userController.mustBeLoggedIn, postController.getAllACs, userController.atividadesComplementares)
-router.get('/extensao', userController.mustBeLoggedIn, postController.getAllAEs, userController.extensao)
-router.get('/estatisticas', userController.mustBeLoggedIn, userController.estatisticas)
-router.get('/mostrar_ac/:id_certificado', userController.mustBeLoggedIn, postController.getByIdAc)
-router.get('/mostrar_ae/:id_certificado', userController.mustBeLoggedIn, postController.getByIdAe)
+router.get('/atividadesComplementares', loginVerification.mustBeLoggedIn, certificadosAcsController.getAllACs, userController.atividadesComplementares)
+router.get('/extensao', loginVerification.mustBeLoggedIn, certificadosAesController.getAllAEs, userController.extensao)
+router.get('/estatisticas', loginVerification.mustBeLoggedIn, userController.estatisticas)
+router.get('/mostrar_ac/:id_certificado', loginVerification.mustBeLoggedIn, certificadosAcsController.getByIdAc)
+router.get('/mostrar_ae/:id_certificado', loginVerification.mustBeLoggedIn, certificadosAesController.getByIdAe)
 module.exports = router

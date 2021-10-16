@@ -1,25 +1,9 @@
-require("dotenv").config
-const pool = require("./db")
 const express = require("express")
 const app = express();
-const session = require("express-session")
-const pgSession = require("connect-pg-simple")(session)
 const router = require("./router")
 const path = require("path")
+const sessionOptions = require("./config/sessionOptions")
 
-let sessionOptions = session({
-    store: new pgSession({
-        pool: pool,
-        tableName: 'session'
-    }),
-    secret: "daedaedd",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        maxAge: 1000 * 60 * 60,
-        httpOnly: true
-    }
-})
 
 app.use(sessionOptions)
 
@@ -41,7 +25,10 @@ app.use(express.json());
 
 app.use('/', router);
 
-
 app.listen(process.env.APP_PORT, () => {
     console.log(`Example app listening at http://localhost:${process.env.APP_PORT}`)
 })
+
+module.exports = app
+
+
