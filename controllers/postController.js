@@ -3,12 +3,12 @@ const Certificados = require('../models/Certificados');
 exports.postACs = function (req, res) {
     let resultado_categoria = new Certificados()
     resultado_categoria.readCatAcs()
-    .then(function (categorias_recuperadas_acs){
-        res.render('pages/postACs', { categorias_recuperadas_acs : categorias_recuperadas_acs , layout: 'pages/postACs' })
-    }).catch(function (err){
-        res.send(err);
-    })
-   
+        .then(function (categorias_recuperadas_acs) {
+            res.render('pages/postACs', { categorias_recuperadas_acs: categorias_recuperadas_acs, layout: 'pages/postACs' })
+        }).catch(function (err) {
+            res.send(err);
+        })
+
 };
 
 exports.postAEs = function (req, res) {
@@ -54,12 +54,12 @@ exports.pegarAtividades = function (req, res) {
 exports.postACs = function (req, res) {
     let resultado_categoria = new Certificados()
     resultado_categoria.readCatAcs()
-    .then(function (categorias_recuperadas_acs){
-        res.render('pages/postACs', { categorias_recuperadas_acs : categorias_recuperadas_acs , layout: 'pages/postACs' })
-    }).catch(function (err){
-        res.send(err);
-    })
-   
+        .then(function (categorias_recuperadas_acs) {
+            res.render('pages/postACs', { categorias_recuperadas_acs: categorias_recuperadas_acs, layout: 'pages/postACs' })
+        }).catch(function (err) {
+            res.send(err);
+        })
+
 };
 
 exports.getAllACs = function (req, res) {

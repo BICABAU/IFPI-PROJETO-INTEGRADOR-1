@@ -40,7 +40,7 @@ router.get('/apagarCertificadoACs/:nome', loginVerification.mustBeLoggedIn, cert
 router.get('/apagarCertificadoAEs/:nome', loginVerification.mustBeLoggedIn, certificadosAesController.apagarCertificadoAEs)
 
 router.post('/uploadACs', multer(multerConfig).single('certificados'), (req, res) => {
-    
+
     let certificados = new Certificados(req.file, req.body, req.session.user.email)
     certificados
         .create().then(certificados.contabilizarHorasACs())
@@ -58,7 +58,7 @@ router.post('/uploadAEs', multer(multerConfig).single('certificados'), (req, res
     certificados
         .create().then(certificados.contabilizarHorasAEs())
         .then(function (result) {
-            
+
             res.redirect('extensao')
         })
         .catch(function (err) {
