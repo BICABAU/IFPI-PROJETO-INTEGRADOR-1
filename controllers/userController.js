@@ -31,7 +31,6 @@ exports.login = function (req, res) {
     user
         .login()
         .then(function (result) {
-            console.log(result);
             req.session.user = {
                 nome: usuarioRecuperado.nome,
                 sobrenome: usuarioRecuperado.sobrenome,
@@ -45,6 +44,7 @@ exports.login = function (req, res) {
                 nascimento: usuarioRecuperado.nascimento,
                 horas_acs: usuarioRecuperado.horas_acs,
                 horas_aes: usuarioRecuperado.horas_aes,
+                matricula: usuarioRecuperado.matricula
             }
 
             req.session.save(function () {
@@ -62,13 +62,7 @@ exports.logout = function (req, res) {
     })
 }
 
-exports.mustBeLoggedIn = function (req, res, next) {
-    if (req.session.user) {
-        next()
-    } else {
-        res.redirect('/')
-    }
-}
+
 
 exports.esqueciASenha = function (req, res) {
     res.render('pages/esqueciAsenha', { layout: 'pages/esqueciAsenha' })
@@ -79,7 +73,7 @@ exports.home = function (req, res) {
     if (req.session.user) {
         res.render('pages/home')
     } else {
-        res.render('pages/home')
+        res.render('/')
     }
 }
 

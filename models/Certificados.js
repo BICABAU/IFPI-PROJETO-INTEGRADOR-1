@@ -1,4 +1,4 @@
-const pool = require("../db")
+const pool = require("../config/db")
 const aws = require('aws-sdk')
 const s3 = new aws.S3()
 
@@ -10,8 +10,8 @@ let Certificados = function (data, data2, email) {
 }
 
 Certificados.prototype.create = function () {
-    const consulta = 'INSERT INTO certificados (tipo_de_atividade,categoria_atividade,subcategoria_atividade,qtd_horas,nome,tamanho,chave,url, email_fk) values ($1,$2,$3,$4,$5,$6,$7,$8,$9)'
-    const values = [this.data2.tipo_de_atividade, this.data2.categoria_atividade, this.data2.subcategoria_atividade, this.data2.qtd_horas, this.data.key, this.data.size, this.data.originalname, this.data.location, this.email]
+    const consulta = 'INSERT INTO certificados (tipo_de_atividade,categoria_atividade,subcategoria_atividade,qtd_horas,nome,tamanho,chave,url, email_fk, descricao_atividade, periodo_realizado) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)'
+    const values = [this.data2.tipo_de_atividade, this.data2.categoria_atividade, this.data2.subcategoria_atividade, this.data2.qtd_horas, this.data.key, this.data.size, this.data.originalname, this.data.location, this.email, this.data2.descricao, this.data2.periodo]
     return new Promise((resolve, reject) => {
         pool.query(consulta, values, (error, results) => {
             if (error) {
@@ -145,7 +145,9 @@ Certificados.prototype.apagarAws = function (nome) {
 
 Certificados.prototype.contabilizarHorasACs = function () {
     const consulta = "UPDATE users SET horas_acs = horas_acs - qtd_horas FROM certificados u where u.nome = $1 AND email = $2"
-    const values = [this.data.filename, this.email]
+    const values = [this.data.key, this.email]
+    console.log(this.data.key)
+    console.log(this.email)
 
     return new Promise((resolve, reject) => {
         pool.query(consulta, values, (error, results) => {
@@ -161,7 +163,8 @@ Certificados.prototype.contabilizarHorasACs = function () {
 
 Certificados.prototype.contabilizarHorasAEs = function () {
     const consulta = "UPDATE users SET horas_aes = horas_aes - qtd_horas FROM certificados u where u.nome = $1 AND email = $2"
-    const values = [this.data.filename, this.email]
+    const values = [this.data.key, this.email]
+    console.log(this.data.key)
 
     return new Promise((resolve, reject) => {
         pool.query(consulta, values, (error, results) => {
