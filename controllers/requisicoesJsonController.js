@@ -4,7 +4,7 @@ const User = require('../models/User')
 exports.cursos_json = function (req, res) {
   let user = new User()
   user.recuperarCursos(req.params.id_tipo_curso_fk)
-    .then(function (cursos_recuperados) {
+    .then((cursos_recuperados) => {
       res.json({ cursos_recuperados: cursos_recuperados })
     })
     .catch(function (err) {
@@ -15,10 +15,10 @@ exports.cursos_json = function (req, res) {
 exports.subcategorias_json = function (req, res) {
   let certificado = new Certificado()
   certificado.readCatAcsSubCategoria(req.params.id_tipo_atividade_acs_fk)
-    .then(function (subcategorias_recuperadas) {
+    .then((subcategorias_recuperadas) => {
       res.json({ subcategorias_recuperadas: subcategorias_recuperadas })
     })
-    .catch(function (err) {
+    .catch((err) => {
       res.send(err)
     })
 }

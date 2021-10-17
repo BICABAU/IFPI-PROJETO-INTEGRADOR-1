@@ -3,10 +3,10 @@ const User = require('../models/User')
 exports.cadastro = function (req, res) {
     let user = new User()
     user.recuperarTiposCursos()
-        .then(function (tipos_cursos_recuperados) {
+        .then((tipos_cursos_recuperados) => {
             res.render('pages/cadastro', { tipos_cursos_recuperado: tipos_cursos_recuperados, layout: 'pages/cadastro' })
         })
-        .catch(function (err) {
+        .catch((err) => {
             res.send(err)
         })
 }
@@ -52,7 +52,7 @@ exports.alterarDados = function (req, res) {
     let user = new User(req.body);
     user
         .alterarDados(), user.readByEmail()
-            .then(function (result) {
+            .then((result) => {
                 req.session.user = {
                     nome: usuarioRecuperado.nome,
                     sobrenome: usuarioRecuperado.sobrenome,
@@ -69,7 +69,7 @@ exports.alterarDados = function (req, res) {
                 }
                 res.redirect('/perfilDoAluno')
             })
-            .catch(function (err) {
+            .catch((err) => {
                 res.send(err)
             })
 }
@@ -77,10 +77,10 @@ exports.alterarDados = function (req, res) {
 exports.cadastrar = function (req, res) {
     let user = new User(req.body);
     user.create()
-        .then(function (result) {
+        .then((result) => {
             res.render('pages/login', { layout: 'pages/login' });
         })
-        .catch(function (err) {
+        .catch((err) => {
             res.send(err);
         });
 };

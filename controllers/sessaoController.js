@@ -4,7 +4,7 @@ exports.login = function (req, res) {
   let user = new User(req.body);
   user
     .login()
-    .then(function (result) {
+    .then((result) => {
       req.session.user = {
         nome: usuarioRecuperado.nome,
         sobrenome: usuarioRecuperado.sobrenome,
@@ -20,17 +20,17 @@ exports.login = function (req, res) {
         horas_aes: usuarioRecuperado.horas_aes,
         matricula: usuarioRecuperado.matricula
       }
-      req.session.save(function () {
+      req.session.save(() => {
         res.redirect('/home')
       })
     })
-    .catch(function (err) {
+    .catch((err) => {
       res.send(err)
     })
 }
 
 exports.logout = function (req, res) {
-  req.session.destroy(function () {
+  req.session.destroy(() => {
     res.redirect("/")
   })
 }

@@ -3,9 +3,9 @@ const Certificado = require('../models/Certificado');
 exports.postACs = function (req, res) {
     let resultado_categoria = new Certificado()
     resultado_categoria.readCatAcs()
-        .then(function (categorias_recuperadas_acs) {
+        .then((categorias_recuperadas_acs) => {
             res.render('pages/postACs', { categorias_recuperadas_acs: categorias_recuperadas_acs, layout: 'pages/postACs' })
-        }).catch(function (err) {
+        }).catch((err) => {
             res.send(err);
         })
 
@@ -14,9 +14,9 @@ exports.postACs = function (req, res) {
 exports.postAEs = function (req, res) {
     let resultado_categoria = new Certificado()
     resultado_categoria.readCatAes()
-        .then(function (resultado_categoria) {
+        .then((resultado_categoria) => {
             res.render('pages/postAEs', { resultado_categorias: resultado_categoria, layout: 'pages/postAEs' })
-        }).catch(function (err) {
+        }).catch((err) => {
             res.send(err);
         })
 };
@@ -26,10 +26,10 @@ exports.pegarAtividades = function (req, res) {
     let certificado = new Certificado(req.file, null, req.session.user.email)
     certificado
         .readAll()
-        .then(function (resultado) {
+        .then((resultado) => {
             res.render("pages/estatisticas", { certificado: resultado })
         })
-        .catch(function (err) {
+        .catch((err) => {
             res.send(err);
         })
 };
