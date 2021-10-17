@@ -57,44 +57,6 @@ User.prototype.create = function () {
 
 };
 
-User.prototype.recuperarTiposCursos = function () {
-    const consulta = 'select * from tipo_curso'
-    const values = []
-    return new Promise((resolve, reject) => {
-        pool.query(consulta, values, (error, results) => {
-            if (error) {
-                reject("Erro ao cadastrar o aluno!")
-            } else {
-                tipos_cursos_recuperados = results.rows
-                console.log(tipos_cursos_recuperados)
-                // resolve("Usuário inserido com sucesso!")
-                resolve(tipos_cursos_recuperados)
-            }
-        });
-    });
-};
-
-// User.prototype.recuperarCursos = function (tipo_curso) {
-//     const consulta = 'SELECT * from cursos inner join tipo_curso' +
-//         ' ON (cursos.id_tipo_curso_fk = tipo_curso.id_tipo_curso)' +
-//         ` WHERE id_tipo_curso_fk = ${tipo_curso}`
-
-//     console.log(consulta)
-//     const values = []
-//     return new Promise((resolve, reject) => {
-//         pool.query(consulta, values, (error, results) => {
-//             if (error) {
-//                 reject("Erro ao retornar cursos de um determinado tipo!")
-//             } else {
-//                 cursos_recuperado = results.rows
-//                 console.log(cursos_recuperado)
-//                 // resolve("Usuário inserido com sucesso!")
-//                 resolve(cursos_recuperado)
-//             }
-//         });
-//     });
-// };
-
 User.prototype.alterarDados = function () {
 
     const consulta = "UPDATE users set nome=$1, nascimento=$2 WHERE email=$3";
