@@ -7,6 +7,7 @@ const multerConfig = require('./config/multer')
 const { mustBeLoggedIn } = require('./middlewares/mustBeLoggedIn')
 
 const userController = require('./controllers/userController')
+const sessaoController = require('./controllers/sessaoController')
 const certificadosAcsController = require('./controllers/certificadosAcsController')
 const certificadosAesController = require('./controllers/certificadosAesController')
 const postController = require('./controllers/postController')
@@ -16,19 +17,21 @@ const cursosController = require('./controllers/cursosController');
 
 //roteamentos do usuário
 router.get('/', userController.login_form)
-router.post('/login', userController.login)
 router.get('/home', userController.home)
 router.get('/cadastro', userController.cadastro)
 router.get('/esqueciASenha', userController.esqueciASenha)
 router.get('/perfilDoAluno', mustBeLoggedIn, userController.perfilDoAluno)
 router.post('/cadastrar', userController.cadastrar)
-router.get('/logout', userController.logout)
+
 router.post('/alterarDados', mustBeLoggedIn, userController.alterarDados)
 // ???
 router.get('/estatisticas', mustBeLoggedIn, postController.pegarAtividades, userController.estatisticas)
 router.get('/estatisticas', mustBeLoggedIn, userController.estatisticas)
 // router.get('/ranking', loginVerification, gamificationController.rankingHighlight)
 
+//roteamento de SESSÃO
+router.post('/login', sessaoController.login)
+router.get('/logout', sessaoController.logout)
 
 //roteamento de cursos
 router.get('/recuperarCursos', cursosController.recuperarCursos);
