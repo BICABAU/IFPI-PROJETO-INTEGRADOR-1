@@ -10,6 +10,7 @@ const userController = require('./controllers/userController')
 const certificadosAcsController = require('./controllers/certificadosAcsController')
 const certificadosAesController = require('./controllers/certificadosAesController')
 const postController = require('./controllers/postController')
+const requisicoesJsonController = require('./controllers/requisicoesJsonController');
 const gamificationController = require('./controllers/gamificationController')
 
 //roteamentos do usuário
@@ -17,8 +18,6 @@ router.get('/', userController.login_form)
 router.post('/login', userController.login)
 router.get('/home', userController.home)
 router.get('/cadastro', userController.cadastro)
-router.get('/cursos_json/:id_tipo_curso_fk', userController.cursos_json)
-router.get('/subcategorias_json/:id_tipo_atividade_acs_fk', certificadosAcsController.subcategorias_json)
 router.get('/esqueciASenha', userController.esqueciASenha)
 router.get('/perfilDoAluno', mustBeLoggedIn, userController.perfilDoAluno)
 router.post('/cadastrar', userController.cadastrar)
@@ -43,5 +42,9 @@ router.get('/mostrar_ac/:id_certificado', mustBeLoggedIn, certificadosAcsControl
 router.get('/mostrar_ae/:id_certificado', mustBeLoggedIn, certificadosAesController.getByIdAe)
 router.get('/apagarCertificadoACs/:nome', mustBeLoggedIn, certificadosAcsController.apagarCertificadoAcs)
 router.get('/apagarCertificadoAEs/:nome', mustBeLoggedIn, certificadosAesController.apagarCertificadoAes)
+
+//roteamento JSON
+router.get('/cursos_json/:id_tipo_curso_fk', requisicoesJsonController.cursos_json)
+router.get('/subcategorias_json/:id_tipo_atividade_acs_fk', requisicoesJsonController.subcategorias_json)
 
 module.exports = router

@@ -48,14 +48,3 @@ exports.apagarCertificadoAcs = function (req, res) {
             res.send(err)
         })
 };
-
-exports.subcategorias_json = function (req, res) {
-    let certificado = new Certificado()
-    certificado.readCatAcsSubCategoria(req.params.id_tipo_atividade_acs_fk)
-        .then(function (subcategorias_recuperadas) {
-            res.json({ subcategorias_recuperadas: subcategorias_recuperadas })
-        })
-        .catch(function (err) {
-            res.send(err)
-        })
-}

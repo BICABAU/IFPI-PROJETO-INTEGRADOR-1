@@ -11,17 +11,6 @@ exports.cadastro = function (req, res) {
         })
 }
 
-exports.cursos_json = function (req, res) {
-    let user = new User()
-    user.recuperarCursos(req.params.id_tipo_curso_fk)
-        .then(function (cursos_recuperados) {
-            res.json({ cursos_recuperados: cursos_recuperados })
-        })
-        .catch(function (err) {
-            res.send(err)
-        })
-}
-
 exports.login_form = function (req, res) {
     res.render('pages/login', { layout: 'pages/login' })
 }
