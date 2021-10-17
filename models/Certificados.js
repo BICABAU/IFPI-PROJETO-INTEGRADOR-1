@@ -42,9 +42,9 @@ Certificados.prototype.readCatAcs = function () {
 
 Certificados.prototype.readCatAcsSubCategoria = function (acs) {
 
-    const consulta = 'SELECT * from acs_subcategorias inner join acs' + 
-    ' ON (acs_subcategorias.id_tipo_atividade_acs_fk = acs.id_tipo_atividade_acs)' + 
-    `WHERE acs.id_tipo_atividade_acs = ${acs}`
+    const consulta = 'SELECT * from acs_subcategorias inner join acs' +
+        ' ON (acs_subcategorias.id_tipo_atividade_acs_fk = acs.id_tipo_atividade_acs)' +
+        `WHERE acs.id_tipo_atividade_acs = ${acs}`
     console.log(consulta)
     const values = []
     return new Promise((resolve, reject) => {
@@ -69,7 +69,7 @@ Certificados.prototype.readAllACs = function () {
                 reject("Erro ao recuperar os certificados!" + error)
             } else {
                 resultado = results.rows
-                
+
                 resolve(resultado);
             }
         });
@@ -159,7 +159,6 @@ Certificados.prototype.contabilizarHorasACs = function () {
         });
     });
 }
-
 
 Certificados.prototype.contabilizarHorasAEs = function () {
     const consulta = "UPDATE users SET horas_aes = horas_aes - qtd_horas FROM certificados u where u.nome = $1 AND email = $2"

@@ -1,6 +1,18 @@
 const Certificados = require('../models/Certificados');
 
 
+exports.uploadsAcs = function (req, res) {
+    let certificados = new Certificados(req.file, req.body, req.session.user.email)
+    certificados
+        .create().then(certificados.contabilizarHorasACs())
+        .then(function (result) {
+            console.log(req.file)
+            res.redirect('atividadesComplementares')
+        })
+        .catch(function (err) {
+            res.send('err')
+        })
+};
 
 exports.getAllACs = function (req, res) {
     let certificado = new Certificados(req.file, null, req.session.user.email)
@@ -24,8 +36,7 @@ exports.getByIdAc = function (req, res) {
         });
 };
 
-
-exports.apagarCertificadoACs = function (req, res) {
+exports.apagarCertificadoAcs = function (req, res) {
     const nome = req.params.nome
     let certificado = new Certificados(null, null, req.session.user.email)
     certificado
