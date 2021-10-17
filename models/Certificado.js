@@ -23,23 +23,6 @@ Certificado.prototype.create = function () {
     });
 }
 
-Certificado.prototype.readCatAcs = function () {
-    const consulta = 'select * from acs'
-    const values = []
-    return new Promise((resolve, reject) => {
-        pool.query(consulta, values, (error, results) => {
-            if (error) {
-                reject("Erro ao recuperar as Categorias")
-            } else {
-                categorias_recuperadas_acs = results.rows
-                console.log(categorias_recuperadas_acs)
-                // resolve("Usuário inserido com sucesso!")
-                resolve(categorias_recuperadas_acs)
-            }
-        });
-    });
-};
-
 Certificado.prototype.readCatAcsSubCategoria = function (acs) {
 
     const consulta = 'SELECT * from acs_subcategorias inner join acs' +
@@ -202,34 +185,6 @@ Certificado.prototype.removerHorasAEs = function (nome) {
             }
         });
     });
-}
-
-Certificado.prototype.readCatAes = function () {
-    const consulta = "SELECT * from aes"
-    return new Promise((resolve, reject) => {
-        pool.query(consulta, (error, results) => {
-            if (error) {
-                reject("Não foi possivel ler as categorias" + error)
-            } else {
-                resultado_categoria = results.rows
-                resolve(resultado_categoria)
-            }
-        })
-    })
-}
-
-Certificado.prototype.readCatAcs = function () {
-    const consulta = "SELECT * from acs"
-    return new Promise((resolve, reject) => {
-        pool.query(consulta, (error, results) => {
-            if (error) {
-                reject("Não foi possivel ler as categorias" + error)
-            } else {
-                resultado_categoria = results.rows
-                resolve(resultado_categoria)
-            }
-        })
-    })
 }
 
 module.exports = Certificado
