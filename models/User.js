@@ -1,6 +1,6 @@
 const pool = require("../config/db")
 const bcrypt = require("bcryptjs")
-const moment = require("moment")
+// const moment = require("moment")
 
 
 let User = function (data) {
@@ -74,26 +74,26 @@ User.prototype.recuperarTiposCursos = function () {
     });
 };
 
-User.prototype.recuperarCursos = function (tipo_curso) {
-    const consulta = 'SELECT * from cursos inner join tipo_curso' +
-        ' ON (cursos.id_tipo_curso_fk = tipo_curso.id_tipo_curso)' +
-        ` WHERE id_tipo_curso_fk = ${tipo_curso}`
+// User.prototype.recuperarCursos = function (tipo_curso) {
+//     const consulta = 'SELECT * from cursos inner join tipo_curso' +
+//         ' ON (cursos.id_tipo_curso_fk = tipo_curso.id_tipo_curso)' +
+//         ` WHERE id_tipo_curso_fk = ${tipo_curso}`
 
-    console.log(consulta)
-    const values = []
-    return new Promise((resolve, reject) => {
-        pool.query(consulta, values, (error, results) => {
-            if (error) {
-                reject("Erro ao retornar cursos de um determinado tipo!")
-            } else {
-                cursos_recuperado = results.rows
-                console.log(cursos_recuperado)
-                // resolve("Usuário inserido com sucesso!")
-                resolve(cursos_recuperado)
-            }
-        });
-    });
-};
+//     console.log(consulta)
+//     const values = []
+//     return new Promise((resolve, reject) => {
+//         pool.query(consulta, values, (error, results) => {
+//             if (error) {
+//                 reject("Erro ao retornar cursos de um determinado tipo!")
+//             } else {
+//                 cursos_recuperado = results.rows
+//                 console.log(cursos_recuperado)
+//                 // resolve("Usuário inserido com sucesso!")
+//                 resolve(cursos_recuperado)
+//             }
+//         });
+//     });
+// };
 
 User.prototype.alterarDados = function () {
 

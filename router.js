@@ -11,7 +11,8 @@ const certificadosAcsController = require('./controllers/certificadosAcsControll
 const certificadosAesController = require('./controllers/certificadosAesController')
 const postController = require('./controllers/postController')
 const requisicoesJsonController = require('./controllers/requisicoesJsonController');
-const gamificationController = require('./controllers/gamificationController')
+const cursosController = require('./controllers/cursosController');
+// const gamificationController = require('./controllers/gamificationController')
 
 //roteamentos do usuário
 router.get('/', userController.login_form)
@@ -23,11 +24,14 @@ router.get('/perfilDoAluno', mustBeLoggedIn, userController.perfilDoAluno)
 router.post('/cadastrar', userController.cadastrar)
 router.get('/logout', userController.logout)
 router.post('/alterarDados', mustBeLoggedIn, userController.alterarDados)
-
 // ???
 router.get('/estatisticas', mustBeLoggedIn, postController.pegarAtividades, userController.estatisticas)
 router.get('/estatisticas', mustBeLoggedIn, userController.estatisticas)
 // router.get('/ranking', loginVerification, gamificationController.rankingHighlight)
+
+
+//roteamento de cursos
+router.get('/recuperarCursos', cursosController.recuperarCursos);
 
 //roteamento de post
 router.get('/postAcs', mustBeLoggedIn, postController.postACs)
