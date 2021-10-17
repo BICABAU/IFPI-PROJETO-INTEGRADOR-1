@@ -1,7 +1,7 @@
-const Certificados = require('../models/Certificados');
+const Certificado = require('../models/Certificado');
 
 exports.uploadAes = function (req, res) {
-    let certificados = new Certificados(req.file, req.body, req.session.user.email)
+    let certificados = new Certificado(req.file, req.body, req.session.user.email)
     certificados
         .create().then(certificados.contabilizarHorasAEs())
         .then(function (result) {
@@ -12,8 +12,8 @@ exports.uploadAes = function (req, res) {
         })
 }
 
-exports.getAllAEs = function (req, res) {
-    let certificado = new Certificados(req.file, null, req.session.user.email)
+exports.getAllAes = function (req, res) {
+    let certificado = new Certificado(req.file, null, req.session.user.email)
     certificado
         .readAllAEs()
         .then(function (resultado) {
@@ -26,7 +26,7 @@ exports.getAllAEs = function (req, res) {
 
 exports.getByIdAe = function (req, res) {
     const id = req.params.id_certificado;
-    let certificado = new Certificados(null, null, req.session.user.email);
+    let certificado = new Certificado(null, null, req.session.user.email);
     certificado
         .readOneById(id)
         .then(function (resultado) {
@@ -40,7 +40,7 @@ exports.getByIdAe = function (req, res) {
 
 exports.apagarCertificadoAes = function (req, res) {
     const nome = req.params.nome
-    let certificado = new Certificados(null, null, req.session.user.email)
+    let certificado = new Certificado(null, null, req.session.user.email)
     certificado
         .removerHorasAEs(nome).then(certificado.apagarAws(nome)).then(certificado.apagar(nome))
         .then(function (resultado) {

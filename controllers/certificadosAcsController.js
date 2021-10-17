@@ -1,8 +1,8 @@
-const Certificados = require('../models/Certificados');
+const Certificado = require('../models/Certificado');
 
 
 exports.uploadsAcs = function (req, res) {
-    let certificados = new Certificados(req.file, req.body, req.session.user.email)
+    let certificados = new Certificado(req.file, req.body, req.session.user.email)
     certificados
         .create().then(certificados.contabilizarHorasACs())
         .then(function (result) {
@@ -14,8 +14,8 @@ exports.uploadsAcs = function (req, res) {
         })
 };
 
-exports.getAllACs = function (req, res) {
-    let certificado = new Certificados(req.file, null, req.session.user.email)
+exports.getAllAcs = function (req, res) {
+    let certificado = new Certificado(req.file, null, req.session.user.email)
     certificado.readAllACs().then(function (resultado) {
         res.render("pages/atividadesComplementares", { certificado: resultado })
     }).catch(function (err) {
@@ -25,7 +25,7 @@ exports.getAllACs = function (req, res) {
 
 exports.getByIdAc = function (req, res) {
     const id = req.params.id_certificado;
-    let certificado = new Certificados(null, null, req.session.user.email);
+    let certificado = new Certificado(null, null, req.session.user.email);
     certificado
         .readOneById(id)
         .then(function (resultado) {
@@ -38,7 +38,7 @@ exports.getByIdAc = function (req, res) {
 
 exports.apagarCertificadoAcs = function (req, res) {
     const nome = req.params.nome
-    let certificado = new Certificados(null, null, req.session.user.email)
+    let certificado = new Certificado(null, null, req.session.user.email)
     certificado
         .removerHorasACs(nome).then(certificado.apagarAws(nome)).then(certificado.apagar(nome))
         .then(function (resultado) {
@@ -50,7 +50,7 @@ exports.apagarCertificadoAcs = function (req, res) {
 };
 
 exports.subcategorias_json = function (req, res) {
-    let certificado = new Certificados()
+    let certificado = new Certificado()
     certificado.readCatAcsSubCategoria(req.params.id_tipo_atividade_acs_fk)
         .then(function (subcategorias_recuperadas) {
             res.json({ subcategorias_recuperadas: subcategorias_recuperadas })

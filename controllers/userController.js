@@ -62,8 +62,6 @@ exports.logout = function (req, res) {
     })
 }
 
-
-
 exports.esqueciASenha = function (req, res) {
     res.render('pages/esqueciAsenha', { layout: 'pages/esqueciAsenha' })
 

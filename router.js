@@ -37,8 +37,8 @@ router.post('/uploadACs', mustBeLoggedIn, multer(multerConfig).single('certifica
 router.post('/uploadAEs', mustBeLoggedIn, multer(multerConfig).single('certificados'), certificadosAesController.uploadAes);
 
 //roteamento de certificados
-router.get('/atividadesComplementares', mustBeLoggedIn, certificadosAcsController.getAllACs, userController.atividadesComplementares)
-router.get('/extensao', mustBeLoggedIn, certificadosAesController.getAllAEs, userController.extensao)
+router.get('/atividadesComplementares', mustBeLoggedIn, certificadosAcsController.getAllAcs, userController.atividadesComplementares)
+router.get('/extensao', mustBeLoggedIn, certificadosAesController.getAllAes, userController.extensao)
 router.get('/mostrar_ac/:id_certificado', mustBeLoggedIn, certificadosAcsController.getByIdAc)
 router.get('/mostrar_ae/:id_certificado', mustBeLoggedIn, certificadosAesController.getByIdAe)
 router.get('/apagarCertificadoACs/:nome', mustBeLoggedIn, certificadosAcsController.apagarCertificadoAcs)
