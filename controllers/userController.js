@@ -3,21 +3,10 @@ const User = require('../models/User')
 exports.cadastro = function (req, res) {
     let user = new User()
     user.recuperarTiposCursos()
-        .then(function (tipos_cursos_recuperados) {
+        .then((tipos_cursos_recuperados) => {
             res.render('pages/cadastro', { tipos_cursos_recuperado: tipos_cursos_recuperados, layout: 'pages/cadastro' })
         })
-        .catch(function (err) {
-            res.send(err)
-        })
-}
-
-exports.cursos_json = function (req, res) {
-    let user = new User()
-    user.recuperarCursos(req.params.id_tipo_curso_fk)
-        .then(function (cursos_recuperados) {
-            res.json({ cursos_recuperados: cursos_recuperados })
-        })
-        .catch(function (err) {
+        .catch((err) => {
             res.send(err)
         })
 }
@@ -25,44 +14,6 @@ exports.cursos_json = function (req, res) {
 exports.login_form = function (req, res) {
     res.render('pages/login', { layout: 'pages/login' })
 }
-
-exports.login = function (req, res) {
-    let user = new User(req.body);
-    user
-        .login()
-        .then(function (result) {
-            req.session.user = {
-                nome: usuarioRecuperado.nome,
-                sobrenome: usuarioRecuperado.sobrenome,
-                curso: usuarioRecuperado.curso,
-                email: user.data.email,
-                cpf: usuarioRecuperado.cpf,
-                telefone: usuarioRecuperado.telefone,
-                instituicao: usuarioRecuperado.instituicao,
-                cidade: usuarioRecuperado.cidade,
-                senha: user.data.senha,
-                nascimento: usuarioRecuperado.nascimento,
-                horas_acs: usuarioRecuperado.horas_acs,
-                horas_aes: usuarioRecuperado.horas_aes,
-                matricula: usuarioRecuperado.matricula
-            }
-
-            req.session.save(function () {
-                res.redirect('/home')
-            })
-        })
-        .catch(function (err) {
-            res.send(err)
-        })
-}
-
-exports.logout = function (req, res) {
-    req.session.destroy(function () {
-        res.redirect("/")
-    })
-}
-
-
 
 exports.esqueciASenha = function (req, res) {
     res.render('pages/esqueciAsenha', { layout: 'pages/esqueciAsenha' })
@@ -101,7 +52,7 @@ exports.alterarDados = function (req, res) {
     let user = new User(req.body);
     user
         .alterarDados(), user.readByEmail()
-            .then(function (result) {
+            .then((result) => {
                 req.session.user = {
                     nome: usuarioRecuperado.nome,
                     sobrenome: usuarioRecuperado.sobrenome,
@@ -118,7 +69,7 @@ exports.alterarDados = function (req, res) {
                 }
                 res.redirect('/perfilDoAluno')
             })
-            .catch(function (err) {
+            .catch((err) => {
                 res.send(err)
             })
 }
@@ -126,10 +77,10 @@ exports.alterarDados = function (req, res) {
 exports.cadastrar = function (req, res) {
     let user = new User(req.body);
     user.create()
-        .then(function (result) {
+        .then((result) => {
             res.render('pages/login', { layout: 'pages/login' });
         })
-        .catch(function (err) {
+        .catch((err) => {
             res.send(err);
         });
 };

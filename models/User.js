@@ -1,10 +1,10 @@
 const pool = require("../config/db")
 const bcrypt = require("bcryptjs")
-const moment = require("moment")
+// const moment = require("moment")
 
 
 let User = function (data) {
-    this.data = data
+    this.data = data;
     this.errors = []
 }
 
@@ -14,7 +14,7 @@ User.prototype.login = function () {
             if (usuarioRecuperado && bcrypt.compareSync(this.data.senha, usuarioRecuperado.senha)) {
                 resolve('Login confere')
             } else {
-                
+
                 reject('Dados de login não conferem')
             }
         }).catch(() => { });
@@ -39,13 +39,11 @@ User.prototype.readByEmail = function () {
     });
 };
 
-
-
 User.prototype.create = function () {
     let salt = bcrypt.genSaltSync(10)
     this.data.senha = bcrypt.hashSync(this.data.senha, salt)
     const consulta = 'INSERT INTO users(nome, sobrenome, email, cpf, telefone, instituicao, cidade, senha, nascimento, tipo_curso, curso, matricula) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11 ,lower($12))'
-    const values = [this.data.nome, this.data.sobrenome, this.data.email, this.data.cpf, this.data.telefone, this.data.instituicao, this.data.cidade, this.data.senha, this.data.nascimento,this.data.tipo_curso, this.data.curso, this.data.matricula]
+    const values = [this.data.nome, this.data.sobrenome, this.data.email, this.data.cpf, this.data.telefone, this.data.instituicao, this.data.cidade, this.data.senha, this.data.nascimento, this.data.tipo_curso, this.data.curso, this.data.matricula]
     return new Promise((resolve, reject) => {
         pool.query(consulta, values, (error, results) => {
             if (error) {
@@ -57,44 +55,6 @@ User.prototype.create = function () {
         });
     });
 
-};
-
-User.prototype.recuperarTiposCursos = function () {
-    const consulta = 'select * from tipo_curso'
-    const values = []
-    return new Promise((resolve, reject) => {
-        pool.query(consulta, values, (error, results) => {
-            if (error) {
-                reject("Erro ao cadastrar o aluno!")
-            } else {
-                tipos_cursos_recuperados = results.rows
-                console.log(tipos_cursos_recuperados)
-                // resolve("Usuário inserido com sucesso!")
-                resolve(tipos_cursos_recuperados)
-            }
-        });
-    });
-};
-
-User.prototype.recuperarCursos = function (tipo_curso) {
-    const consulta = 'SELECT * from cursos inner join tipo_curso' +
-        ' ON (cursos.id_tipo_curso_fk = tipo_curso.id_tipo_curso)' +
-        ` WHERE id_tipo_curso_fk = ${tipo_curso}`
-
-    console.log(consulta)
-    const values = []
-    return new Promise((resolve, reject) => {
-        pool.query(consulta, values, (error, results) => {
-            if (error) {
-                reject("Erro ao retornar cursos de um determinado tipo!")
-            } else {
-                cursos_recuperado = results.rows
-                console.log(cursos_recuperado)
-                // resolve("Usuário inserido com sucesso!")
-                resolve(cursos_recuperado)
-            }
-        });
-    });
 };
 
 User.prototype.alterarDados = function () {

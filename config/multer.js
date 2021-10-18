@@ -5,7 +5,7 @@ const aws = require('aws-sdk')
 const multerS3 = require('multer-s3');
 
 const storageTypes = {
-    local:multer.diskStorage({
+    local: multer.diskStorage({
         destination: (req, file, cb) => {
             cb(null, path.resolve(__dirname, '..', 'tmp', 'uploads'))
         },
@@ -40,7 +40,7 @@ module.exports = {
     dest: path.resolve(__dirname, '..', 'tmp', 'uploads'),
     storage: storageTypes[process.env.STORAGE_TYPE],
     limits: {
-        fileSize: 4 * 1024 * 1024 + 1024,
+        fileSize: 4 * 1024 * 1024 + 1024, // 4 megabytes
     },
     fileFilter: (req, file, cb) => {
         const allowedMimes = [
